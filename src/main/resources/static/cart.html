@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cinnamon Shop - Cart</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+    <div class="cart-container">
+        <h1>Cinnamon Products Shop</h1>
+        
+        <div class="products-section">
+            <h2>Available Products</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="images/cinnamon-sticks.jpg" alt="Cinnamon Sticks">
+                    <h3>Cinnamon Sticks</h3>
+                    <p>Premium Ceylon Cinnamon Sticks</p>
+                    <p class="price">$12.99 per 100g</p>
+                    <div class="product-controls">
+                        <input type="number" min="1" value="1" id="quantity-1">
+                        <button onclick="addToCart(1, 'Cinnamon Sticks')">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="images/cinnamon-powder.jpg" alt="Cinnamon Powder">
+                    <h3>Cinnamon Powder</h3>
+                    <p>Fine Ground Ceylon Cinnamon</p>
+                    <p class="price">$9.99 per 100g</p>
+                    <div class="product-controls">
+                        <input type="number" min="1" value="1" id="quantity-2">
+                        <button onclick="addToCart(2, 'Cinnamon Powder')">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="images/cinnamon-oil.jpg" alt="Cinnamon Oil">
+                    <h3>Cinnamon Oil</h3>
+                    <p>Pure Ceylon Cinnamon Oil</p>
+                    <p class="price">$24.99 per 30ml</p>
+                    <div class="product-controls">
+                        <input type="number" min="1" value="1" id="quantity-3">
+                        <button onclick="addToCart(3, 'Cinnamon Oil')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-content">
+            <h2>Your Shopping Cart</h2>
+            <div id="cartList" class="cart-items-list"></div>
+            <div class="cart-actions">
+                <button onclick="getCartItems()" class="refresh-btn">Refresh Cart</button>
+                <button onclick="clearCart()" class="clear-btn">Clear Cart</button>
+            </div>
+            <div class="cart-total">
+                <h3>Total: $<span id="cartTotal">0.00</span></h3>
+                <button class="checkout-btn">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    const products = {
+        1: { name: 'Cinnamon Sticks', price: 12.99 },
+        2: { name: 'Cinnamon Powder', price: 9.99 },
+        3: { name: 'Cinnamon Oil', price: 24.99 }
+    };
+    // Load cart when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        getCartItems();
+    });
+
+const BASE_URL = 'http://localhost:8085/api/cart';
+
+function addToCart(productId, productName) {
+    const quantity = parseInt(document.getElementById(`quantity-${productId}`).value);
+    const userId = 1;
+
+    console.log('Sending request:', { userId, productId, quantity }); // Debug log
+
+    fetch(`${BASE_URL}/add`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            userId: userId,
+            productId: productId,
+            quantity: quantity
+        })
+    })
+    .then(response => {
+        console.log('Response:', response.status); // Debug log
+        if (!response.ok) {
+            return response.text().then(text => {
+                throw new Error(`Server returned ${response.status}: ${text}`);
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Success:', data); // Debug log
+        alert(`${productName} added to cart`);
+        getCartItems();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error adding item to cart: ' + error.message);
+    });
+}
+
+function getCartItems() {
+const userId = 1; // Default user ID
+    fetch(`${BASE_URL}/${userId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(items => {
+        console.log('Received items:', items); // Debug log
+        const cartList = document.getElementById('cartList');
+        let total = 0;
+        
+        if (!items || items.length === 0) {
+            cartList.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+            document.getElementById('cartTotal').textContent = '0.00';
+            return;
+        }
+
+        cartList.innerHTML = items.map(item => {
+            const product = products[item.productId];
+            if (!product) {
+                console.error('Product not found:', item.productId);
+                return '';
+            }
+            const itemTotal = product.price * item.quantity;
+            total += itemTotal;
+            
+            return `
+                <div class="cart-item">
+                    <div class="item-details">
+                        <span><strong>${product.name}</strong></span>
+                        <span>Quantity: ${item.quantity}</span>
+                        <span>$${itemTotal.toFixed(2)}</span>
+                    </div>
+                    <button onclick="removeItem(${item.id})" class="remove-btn">Remove</button>
+                </div>
+            `;
+        }).join('');
+
+        document.getElementById('cartTotal').textContent = total.toFixed(2);
+    })
+    .catch(error => {
+        console.error('Error fetching cart:', error);
+        document.getElementById('cartList').innerHTML = 
+            '<p class="error-message">Error loading cart. Please try again.</p>';
+        document.getElementById('cartTotal').textContent = '0.00';
+    });
+}
+function removeItem(cartItemId) {
+    fetch(`http://localhost:8085/api/cart/remove/${cartItemId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        alert('Item removed from cart');
+        getCartItems();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error removing item: ' + error.message);
+    });
+}
+
+function clearCart() {
+    const userId = 1;
+    fetch(`http://localhost:8085/api/cart/clear/${userId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        alert('Cart cleared successfully');
+        getCartItems();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error clearing cart: ' + error.message);
+    });
+}
+</script>
+</body>
+</html>
