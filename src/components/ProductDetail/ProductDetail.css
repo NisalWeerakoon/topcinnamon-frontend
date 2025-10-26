@@ -1,6 +1,6 @@
 /* ========== Product Detail Container ========== */
 .product-detail-container {
-  padding-top: 90px;
+  padding-top: 120px;
   margin: 0 auto;
   max-width: 1200px;
   padding-left: 2rem;
@@ -357,4 +357,26 @@
 .helpful-btn:hover {
   border-color: var(--primary-color);
   color: var(--primary-color);
+}
+
+/* ========== Reviews Placeholder ========== */
+.reviews-placeholder {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  margin-top: 2rem;
+}
+
+.placeholder-text {
+  color: var(--primary-color);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-primary);
+}
+
+.placeholder-subtext {
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-secondary);
 }
