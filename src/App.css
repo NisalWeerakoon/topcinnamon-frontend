@@ -409,3 +409,63 @@ main {
 .product-section:last-child {
   min-height: 400px;
 }
+
+/* ========== Nav Right Section ========== */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* ========== Cart Icon ========== */
+.cart-icon {
+  position: relative;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 0.5rem;
+}
+
+.cart-icon:hover {
+  color: var(--primary-color);
+  transform: scale(1.1);
+}
+
+.cart-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--primary-color);
+  color: var(--bg-dark);
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 50%;
+  font-weight: 600;
+  min-width: 18px;
+  text-align: center;
+}
+
+/* ========== User Dropdown Enhancement ========== */
+.user-info {
+  padding: 0.8rem 1.2rem;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.user-name {
+  color: var(--primary-color);
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+  font-size: 0.95rem;
+}
+
+.user-email {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--card-border);
+  margin: 0.5rem 0;
+}
