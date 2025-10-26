@@ -1,0 +1,334 @@
+/* ========== Home Container ========== */
+.home-container {
+  padding-top: 80px; /* Account for fixed navbar */
+  background: var(--bg-dark);
+  min-height: 100vh;
+}
+
+/* ========== Hero Section ========== */
+.hero-home {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-text h1 {
+  font-size: 3.5rem;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--text-color);
+  font-family: var(--font-primary);
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.hero-text h1 .accent-text {
+  display: block;
+  color: var(--primary-color);
+  margin-top: 0.8rem;
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
+.hero-text p {
+  font-family: var(--font-secondary);
+  color: #d9c7ad;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  max-width: 90%;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.hero-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.hero-image-placeholder {
+  aspect-ratio: 4/3;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  background: linear-gradient(135deg, rgba(237,212,177,0.08), rgba(255,175,110,0.06));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.image-caption {
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  color: #c7b08f;
+  margin-top: 1.5rem;
+  font-weight: 500;
+}
+
+/* ========== Selection Section ========== */
+.selection-section {
+  padding: 5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.section-container h2 {
+  font-size: 2.8rem;
+  font-weight: 600;
+  color: var(--text-color);
+  font-family: var(--font-primary);
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-family: var(--font-secondary);
+  color: #d9c7ad;
+  margin-bottom: 4rem;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.products-grid-home {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.product-card-home {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.product-card-home:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  border-color: var(--primary-color);
+}
+
+.product-image-placeholder {
+  height: 120px;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  background: linear-gradient(135deg, rgba(237,212,177,0.06), rgba(255,175,110,0.04));
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.product-card-home h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 0.8rem;
+  font-family: var(--font-primary);
+}
+
+.product-tagline {
+  font-family: var(--font-secondary);
+  font-size: 0.9rem;
+  color: #c7b08f;
+  font-weight: 500;
+}
+
+.section-cta {
+  margin-top: 2rem;
+}
+
+/* ========== Testimonials Section ========== */
+.testimonials-section {
+  padding: 5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.testimonials-container {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  padding: 3rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.testimonial-quote {
+  font-family: var(--font-secondary);
+  color: #e9dcc8;
+  font-style: italic;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.testimonial-author {
+  font-family: var(--font-secondary);
+  font-size: 0.9rem;
+  color: #bfa884;
+  font-weight: 500;
+}
+
+/* ========== CTA Section ========== */
+.cta-section {
+  padding: 5rem 2rem 6rem;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cta-container h2 {
+  font-size: 2.8rem;
+  font-weight: 600;
+  color: var(--text-color);
+  font-family: var(--font-primary);
+  margin-bottom: 1.5rem;
+}
+
+.cta-container p {
+  font-family: var(--font-secondary);
+  color: #d9c7ad;
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* ========== Buttons ========== */
+.btn-primary {
+  background: var(--primary-color);
+  color: #1a140d;
+  border: 1px solid var(--card-border);
+  border-radius: 25px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  font-family: var(--font-primary);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(237, 212, 177, 0.15);
+}
+
+.btn-ghost {
+  color: var(--text-color);
+  border: 1px solid var(--card-border);
+  border-radius: 25px;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  font-family: var(--font-primary);
+}
+
+.btn-ghost:hover {
+  background: rgba(237, 212, 177, 0.1);
+  border-color: var(--primary-color);
+}
+
+.btn-disabled {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  display: inline-block;
+  font-family: var(--font-primary);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 1024px) {
+  .products-grid-home {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+
+  .products-grid-home {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .section-container h2,
+  .cta-container h2 {
+    font-size: 1.8rem;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-primary, .btn-ghost {
+    width: 200px;
+    text-align: center;
+  }
+}
