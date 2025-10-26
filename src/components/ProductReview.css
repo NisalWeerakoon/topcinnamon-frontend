@@ -1,0 +1,842 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #121212;
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+.review-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Rating Header */
+.rating-header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333;
+}
+
+.overall-rating {
+    text-align: center;
+}
+
+.rating-score {
+    font-size: 48px;
+    font-weight: bold;
+    color: #ff6b00;
+    line-height: 1;
+}
+
+.rating-stars-large {
+    color: #ffa500;
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.total-ratings {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.rating-distribution {
+    flex: 1;
+}
+
+.rating-bar {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    font-size: 14px;
+}
+
+.rating-bar .stars {
+    width: 80px;
+    color: #ffa500;
+}
+
+.rating-bar .bar-container {
+    flex: 1;
+    height: 8px;
+    background: #333;
+    border-radius: 4px;
+    margin: 0 15px;
+    overflow: hidden;
+}
+
+.rating-bar .bar-fill {
+    height: 100%;
+    background: #ffa500;
+    border-radius: 4px;
+}
+
+.rating-bar .count {
+    width: 30px;
+    text-align: right;
+    color: #aaa;
+}
+
+/* Reviews Section */
+.reviews-section {
+    margin-top: 30px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #e0e0e0;
+}
+
+.review-filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #333;
+}
+
+.sort-filter {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.sort-select,
+.filter-select {
+    padding: 8px 12px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background: #222;
+    color: #e0e0e0;
+    font-size: 14px;
+}
+
+/* Review Item */
+.review-item {
+    padding: 20px 0;
+    border-bottom: 1px solid #333;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.reviewer-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.reviewer-avatar {
+    width: 40px;
+    height: 40px;
+    background: #ff6b00;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.reviewer-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.reviewer-name {
+    font-weight: bold;
+    color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.verified-badge {
+    background: #28a745;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.review-date {
+    color: #aaa;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.review-rating {
+    color: #ffa500;
+    font-size: 16px;
+}
+
+.review-content {
+    margin: 10px 0;
+}
+
+.review-tags {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.review-tag {
+    background: #222;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #aaa;
+    border: 1px solid #333;
+}
+
+.review-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.helpful-btn {
+    background: #222;
+    border: 1px solid #444;
+    padding: 6px 12px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.helpful-btn:hover {
+    background: #333;
+}
+
+.helpful-btn.active {
+    background: #1a3a5f;
+    border-color: #2196f3;
+    color: #2196f3;
+}
+
+/* Write Review Section */
+.write-review-section {
+    background: #1e1e1e;
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 40px;
+    border: 1px solid #333;
+}
+
+.write-review-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #e0e0e0;
+}
+
+.review-form {
+    display: grid;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #e0e0e0;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+    background: #222;
+    color: #e0e0e0;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.star-rating {
+    display: flex;
+    gap: 5px;
+    margin: 10px 0;
+}
+
+.star-rating .star {
+    font-size: 24px;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star-rating .star.active {
+    color: #ffa500;
+}
+
+.submit-btn {
+    background: #ff6b00;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    align-self: flex-start;
+}
+
+.submit-btn:hover {
+    background: #e55a00;
+}
+
+.submit-btn:disabled {
+    background: #555;
+    cursor: not-allowed;
+}
+
+/* No Reviews */
+.no-reviews {
+    text-align: center;
+    padding: 40px;
+    color: #aaa;
+}
+
+.no-reviews i {
+    font-size: 48px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+/* Debug Tools - Included but commented out in JSX */
+.debug-tools {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background: #1e1e1e;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    z-index: 1000;
+    color: #e0e0e0;
+}
+
+.debug-tools h6 {
+    margin-bottom: 8px;
+    font-size: 12px;
+}
+
+.debug-btn {
+    padding: 5px 10px;
+    margin: 2px;
+    border: 1px solid #444;
+    border-radius: 3px;
+    background: #222;
+    cursor: pointer;
+    font-size: 11px;
+    color: #e0e0e0;
+}
+
+.debug-btn:hover {
+    background: #333;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: white;
+}
+
+.btn-warning {
+    background: #ffc107;
+    color: black;
+}
+
+.btn-info {
+    background: #17a2b8;
+    color: white;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-dark {
+    background: #343a40;
+    color: white;
+}
+
+/* Verified Purchase Checkbox */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: auto;
+}
+
+.checkbox-group label {
+    margin: 0;
+    font-weight: normal;
+}
+
+/* Compact Messages Panel Styles */
+.compact-messages-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background: rgba(44, 44, 44, 0.98);
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 107, 0, 0.4);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            overflow: hidden;
+            font-size: 13px;
+            color: #f8f8f8;
+        }
+
+        .panel-header {
+            padding: 12px 15px;
+            background: rgba(255, 107, 0, 0.15);
+            border-bottom: 1px solid rgba(255, 107, 0, 0.2);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .panel-header:hover {
+            background: rgba(255, 107, 0, 0.2);
+        }
+
+        .header-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ff6b00;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .message-badge {
+            background: #ff6b00;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        #panelToggleIcon {
+            color: #ffa500;
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .panel-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .compact-messages-panel.open .panel-content {
+            max-height: 350px;
+        }
+
+        .compact-messages-panel.open #panelToggleIcon {
+            transform: rotate(180deg);
+        }
+
+        .messages-list {
+            max-height: 280px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+/* Make the compact messages panel smaller */
+.write-review-section .compact-messages-panel {
+    position: relative !important;
+    bottom: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    margin: 15px 0 !important;
+    background: #1e1e1e !important;
+    border: 1px solid #444 !important;
+    border-radius: 6px !important;
+    backdrop-filter: none !important;
+    font-size: 12px !important; /* Smaller font */
+}
+
+/* Smaller panel header */
+.write-review-section .panel-header {
+    padding: 8px 12px !important; /* Reduced padding */
+    background: #333 !important;
+    border-bottom: 1px solid #444 !important;
+    font-size: 12px !important;
+}
+
+.write-review-section .header-info {
+    gap: 6px !important;
+    font-size: 12px !important;
+}
+
+.write-review-section .message-badge {
+    padding: 1px 4px !important;
+    font-size: 10px !important;
+    min-width: 16px !important;
+}
+
+/* Smaller message items */
+.write-review-section .message-item {
+    padding: 6px 8px !important;
+    margin-bottom: 6px !important;
+}
+
+.write-review-section .message-header {
+    margin-bottom: 4px !important;
+}
+
+.write-review-section .message-sender {
+    font-size: 11px !important;
+}
+
+.write-review-section .message-date {
+    font-size: 9px !important;
+}
+
+.write-review-section .message-preview {
+    font-size: 10px !important;
+    margin-bottom: 6px !important;
+}
+
+.write-review-section .message-preview p {
+    font-size: 10px !important;
+    margin-top: 3px !important;
+}
+
+.write-review-section .message-meta {
+    font-size: 9px !important;
+    margin-bottom: 6px !important;
+}
+
+.write-review-section .message-actions {
+    gap: 4px !important;
+}
+
+.write-review-section .edit-btn,
+.write-review-section .delete-btn {
+    padding: 3px 6px !important;
+    font-size: 9px !important;
+    gap: 3px !important;
+}
+
+/* Smaller panel actions */
+.write-review-section .panel-actions {
+    padding: 6px 10px !important;
+}
+
+.write-review-section .refresh-btn-small,
+.write-review-section .clear-all-btn {
+    padding: 4px 8px !important;
+    font-size: 10px !important;
+    gap: 4px !important;
+}
+
+/* Reduce max height for content */
+.write-review-section .compact-messages-panel.open .panel-content {
+    max-height: 250px !important; /* Reduced from 350px */
+}
+
+.write-review-section .messages-list {
+    max-height: 200px !important; /* Reduced from 280px */
+    padding: 6px !important;
+}
+
+/* Smaller empty states */
+.write-review-section .empty-messages {
+    padding: 20px 15px !important;
+}
+
+.write-review-section .empty-messages i {
+    font-size: 16px !important;
+    margin-bottom: 6px !important;
+}
+
+.write-review-section .empty-messages p {
+    font-size: 11px !important;
+}
+
+.write-review-section .empty-messages small {
+    font-size: 9px !important;
+}
+
+/* Smaller loading state */
+.write-review-section .messages-loading {
+    padding: 15px !important;
+}
+
+.write-review-section .messages-loading p {
+    font-size: 11px !important;
+}
+
+/* Custom scrollbar */
+.messages-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.messages-list::-webkit-scrollbar-track {
+    background: rgba(26, 26, 26, 0.6);
+}
+
+.messages-list::-webkit-scrollbar-thumb {
+    background: #ff6b00;
+    border-radius: 2px;
+}
+
+.message-item {
+    background: rgba(26, 26, 26, 0.7);
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    border-left: 2px solid #ff6b00;
+    transition: all 0.3s ease;
+}
+
+.message-item:hover {
+    background: rgba(26, 26, 26, 0.9);
+    transform: translateX(2px);
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 6px;
+}
+
+.message-sender {
+    font-weight: 600;
+    color: #f8f8f8;
+    font-size: 13px;
+    margin: 0;
+}
+
+.message-date {
+    font-size: 10px;
+    color: #ffa500;
+}
+
+.message-preview {
+    font-size: 12px;
+    color: #e0e0e0;
+    opacity: 0.8;
+    line-height: 1.3;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.message-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #ffa500;
+    margin-bottom: 8px;
+}
+
+.message-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.delete-btn {
+    background: rgba(220, 53, 69, 0.2);
+    border: 1px solid #dc3545;
+    color: #dc3545;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 10px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.delete-btn:hover {
+    background: #dc3545;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.edit-btn {
+    background: rgba(32, 201, 151, 0.2);
+    border: 1px solid #20c997;
+    color: #20c997;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 10px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.edit-btn:hover {
+    background: #20c997;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.edit-btn:disabled {
+    background: rgba(108, 117, 125, 0.2);
+    border-color: #6c757d;
+    color: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.empty-messages {
+    text-align: center;
+    padding: 30px 20px;
+    color: #e0e0e0;
+    opacity: 0.5;
+}
+
+.empty-messages i {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: #ffa500;
+}
+
+.empty-messages p {
+    margin: 0;
+    font-size: 12px;
+}
+
+.panel-actions {
+    padding: 10px 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.refresh-btn-small,
+.clear-all-btn {
+    background: rgba(255, 107, 0, 0.2);
+    border: 1px solid #ff6b00;
+    color: #ff6b00;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 11px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.refresh-btn-small:hover,
+.clear-all-btn:hover {
+    background: #ff6b00;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.clear-all-btn {
+    background: rgba(220, 53, 69, 0.2);
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+.clear-all-btn:hover {
+    background: #dc3545;
+    color: white;
+}
+
+.messages-loading {
+    text-align: center;
+    padding: 20px;
+    color: #ffa500;
+}
+
+.messages-loading i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .compact-messages-panel {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+        width: auto;
+        max-width: 350px;
+        margin: 0 auto;
+    }
+}
+
+.status-approved {
+    color: #28a745;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.status-pending {
+    color: #ffc107;
+    font-weight: bold;
+    font-size: 10px;
+}
