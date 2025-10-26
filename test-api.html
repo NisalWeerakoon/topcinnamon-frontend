@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Connection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .info { color: #17a2b8; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        button:disabled { background: #6c757d; cursor: not-allowed; }
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .endpoint-test {
+            margin: 10px 0;
+            padding: 10px;
+            border-left: 4px solid #ddd;
+            background: #f9f9f9;
+        }
+        .endpoint-test.success { border-left-color: #28a745; }
+        .endpoint-test.error { border-left-color: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔗 API Connection Test</h1>
+        <p>This page tests all the backend API endpoints used by the React frontend.</p>
+        
+        <div class="test-section">
+            <h2>Test Controls</h2>
+            <button onclick="runAllTests()" id="runTests">Run All Tests</button>
+            <button onclick="clearLog()" id="clearLog">Clear Log</button>
+            <button onclick="testSpecificEndpoint()" id="testSpecific">Test Specific Endpoint</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>Test Results</h2>
+            <div id="testResults" class="log">Click "Run All Tests" to start testing...</div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Individual Endpoint Tests</h2>
+            <div id="endpointTests"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8082/api';
+        let testResults = [];
+
+        const testEndpoints = [
+            // Contact endpoints
+            { method: 'GET', url: `${API_BASE_URL}/contact/test`, name: 'Contact Test' },
+            { method: 'GET', url: `${API_BASE_URL}/contact/all-ordered`, name: 'Get All Contacts' },
+            { method: 'GET', url: `${API_BASE_URL}/contact/admin/dashboard/stats`, name: 'Contact Dashboard Stats' },
+            
+            // Review endpoints
+            { method: 'GET', url: `${API_BASE_URL}/reviews/test`, name: 'Review Test' },
+            { method: 'GET', url: `${API_BASE_URL}/reviews/approved`, name: 'Get Approved Reviews' },
+            { method: 'GET', url: `${API_BASE_URL}/reviews/statistics`, name: 'Review Statistics' },
+            { method: 'GET', url: `${API_BASE_URL}/reviews/admin/all`, name: 'Get All Reviews (Admin)' },
+            { method: 'GET', url: `${API_BASE_URL}/reviews/admin/dashboard/stats`, name: 'Review Dashboard Stats' },
+        ];
+
+        const testContactData = {
+            name: 'Test User',
+            email: 'test@example.com',
+            phone: '+1234567890',
+            country: 'United States',
+            subject: 'Test Subject',
+            message: 'This is a test message'
+        };
+
+        const testReviewData = {
+            customerName: 'Test Customer',
+            email: 'test@example.com',
+            rating: 5,
+            reviewTitle: 'Great Product',
+            comment: 'This is a test review',
+            productType: 'C5',
+            productId: 'test-product-001',
+            productName: 'Test Product',
+            verifiedPurchase: true
+        };
+
+        function log(message, type = 'info') {
+            const logElement = document.getElementById('testResults');
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'success' ? 'success' : type === 'error' ? 'error' : 'info';
+            logElement.innerHTML += `<span class="${className}">[${timestamp}] ${message}</span>\n`;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('testResults').innerHTML = '';
+            document.getElementById('endpointTests').innerHTML = '';
+            testResults = [];
+        }
+
+        async function testEndpoint(endpoint) {
+            try {
+                log(`🧪 Testing ${endpoint.name}...`);
+                log(`   ${endpoint.method} ${endpoint.url}`);
+                
+                const options = {
+                    method: endpoint.method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+                
+                if (endpoint.method === 'POST' && endpoint.data) {
+                    options.body = JSON.stringify(endpoint.data);
+                }
+                
+                const response = await fetch(endpoint.url, options);
+                const status = response.status;
+                const statusText = response.statusText;
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    log(`   ✅ SUCCESS (${status} ${statusText})`, 'success');
+                    log(`   📊 Response: ${JSON.stringify(data, null, 2)}`);
+                    return { success: true, status, data };
+                } else {
+                    const errorText = await response.text();
+                    log(`   ❌ FAILED (${status} ${statusText})`, 'error');
+                    log(`   📄 Error: ${errorText}`, 'error');
+                    return { success: false, status, error: errorText };
+                }
+            } catch (error) {
+                log(`   💥 ERROR: ${error.message}`, 'error');
+                return { success: false, error: error.message };
+            }
+        }
+
+        async function runAllTests() {
+            const runButton = document.getElementById('runTests');
+            runButton.disabled = true;
+            runButton.textContent = 'Running Tests...';
+            
+            log('🚀 Starting API Connection Tests...');
+            log('=' .repeat(50));
+            
+            testResults = [];
+            
+            // Test GET endpoints
+            for (const endpoint of testEndpoints) {
+                const result = await testEndpoint(endpoint);
+                testResults.push({ ...endpoint, result });
+            }
+            
+            // Test POST endpoints
+            log('\n📝 Testing POST endpoints...');
+            
+            // Test contact submission
+            const contactTest = await testEndpoint({
+                method: 'POST',
+                url: `${API_BASE_URL}/contact`,
+                name: 'Submit Contact Form',
+                data: testContactData
+            });
+            testResults.push({ method: 'POST', url: `${API_BASE_URL}/contact`, name: 'Submit Contact Form', result: contactTest });
+            
+            // Test review submission
+            const reviewTest = await testEndpoint({
+                method: 'POST',
+                url: `${API_BASE_URL}/reviews`,
+                name: 'Submit Review',
+                data: testReviewData
+            });
+            testResults.push({ method: 'POST', url: `${API_BASE_URL}/reviews`, name: 'Submit Review', result: reviewTest });
+            
+            // Summary
+            log('\n📊 TEST SUMMARY');
+            log('=' .repeat(50));
+            
+            const successful = testResults.filter(r => r.result.success).length;
+            const failed = testResults.filter(r => !r.result.success).length;
+            
+            log(`✅ Successful: ${successful}`, 'success');
+            log(`❌ Failed: ${failed}`, failed > 0 ? 'error' : 'success');
+            log(`📈 Success Rate: ${Math.round((successful / testResults.length) * 100)}%`);
+            
+            if (failed > 0) {
+                log('\n❌ FAILED TESTS:');
+                testResults.filter(r => !r.result.success).forEach(r => {
+                    log(`   - ${r.name}: ${r.result.error || r.result.status}`, 'error');
+                });
+            }
+            
+            log('\n🎯 Test completed!');
+            
+            // Update button
+            runButton.disabled = false;
+            runButton.textContent = 'Run All Tests';
+            
+            // Display individual results
+            displayIndividualResults();
+        }
+
+        function displayIndividualResults() {
+            const container = document.getElementById('endpointTests');
+            container.innerHTML = '';
+            
+            testResults.forEach((test, index) => {
+                const div = document.createElement('div');
+                div.className = `endpoint-test ${test.result.success ? 'success' : 'error'}`;
+                div.innerHTML = `
+                    <h4>${test.name}</h4>
+                    <p><strong>Method:</strong> ${test.method}</p>
+                    <p><strong>URL:</strong> ${test.url}</p>
+                    <p><strong>Status:</strong> ${test.result.success ? '✅ Success' : '❌ Failed'}</p>
+                    ${test.result.error ? `<p><strong>Error:</strong> ${test.result.error}</p>` : ''}
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function testSpecificEndpoint() {
+            const url = prompt('Enter the endpoint URL to test:');
+            if (url) {
+                testEndpoint({
+                    method: 'GET',
+                    url: url,
+                    name: 'Custom Test'
+                });
+            }
+        }
+
+        // Auto-run tests on page load
+        window.addEventListener('load', () => {
+            log('Page loaded. Ready to test API connections.');
+            log('Make sure the backend is running on http://localhost:8082');
+        });
+    </script>
+</body>
+</html>
